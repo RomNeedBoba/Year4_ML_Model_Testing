@@ -16,8 +16,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load your YOLOv8 text detection model
-model = YOLO(r"Aksor@1.pt")  # change path if needed
+# Load YOLOv8 text detection model
+model = YOLO(r"Aksor@1.pt")  # update path if needed
+
+# Root endpoint for sanity check
+@app.get("/")
+async def root():
+    return {"message": "Khmer Text Detection API is running. Use POST /detect to send images."}
 
 @app.post("/detect")
 async def detect(file: UploadFile = File(...)):
